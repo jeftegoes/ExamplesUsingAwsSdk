@@ -2,6 +2,7 @@
 using System.Net;
 using Amazon.SQS;
 using Amazon.SQS.Model;
+using Configuration;
 using Consumer.Models;
 using Newtonsoft.Json;
 
@@ -12,8 +13,12 @@ static async Task DeleteMessage(string queueUrl, IAmazonSQS sqsClient, Message m
 
 static async Task ReceiveMessage(string queueUrl, IAmazonSQS sqsClient)
 {
-    var receiveMessageRequest = new ReceiveMessageRequest();
-    receiveMessageRequest.QueueUrl = queueUrl;
+    var receiveMessageRequest = new ReceiveMessageRequest()
+    {
+        MaxNumberOfMessages = 10,
+        WaitTimeSeconds = 20,
+        QueueUrl = queueUrl
+    };
 
     var numberOfMessages = await NumberOfMessageInQueue(queueUrl, sqsClient);
 
@@ -56,5 +61,5 @@ static async Task<int> NumberOfMessageInQueue(string queueUrl, IAmazonSQS sqsCli
 }
 
 var sqsClient = new AmazonSQSClient(Amazon.RegionEndpoint.SAEast1);
-var queueUrl = "MY_URL";
-await ReceiveMessage(queueUrl, sqsClient);
+
+await ReceiveMessage(Constants._queueUrl, sqsClient);
