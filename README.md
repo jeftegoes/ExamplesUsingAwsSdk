@@ -1,6 +1,8 @@
+[AWS Toolkit for Visual Studio Documentation](https://docs.aws.amazon.com/aws-toolkit-visual-studio/index.html)
+
 # Commands
 
-- build and deploy using the Amazon.Lambda.Tools
+- Build and deploy using the Amazon.Lambda.Tools
   - dotnet tool install -g Amazon.Lambda.Tools
 - To install Amazon.Lambda.Templates
   - dotnet new -i Amazon.Lambda.Templates
