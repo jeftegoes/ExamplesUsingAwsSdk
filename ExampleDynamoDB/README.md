@@ -1,1 +1,1 @@
-- This is a example how to implement CRUD using AWS DynamoDB, AWS SDK and the [Higher-Level](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HigherLevelInterfaces.html) abstraction.
+- This is an example how to implement CRUD using AWS DynamoDB, AWS SDK and the [Higher-Level](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HigherLevelInterfaces.html) abstraction.
