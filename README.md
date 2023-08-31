@@ -1,10 +1,10 @@
 [AWS Toolkit for Visual Studio Documentation](https://docs.aws.amazon.com/aws-toolkit-visual-studio/index.html)
 
-# Python commands
+# 1. Python commands
 
 - pip install boto3
 
-# Dotnet commands
+# 2. Dotnet commands
 
 - Install dotnet lambda global tools, this is necessary to build and deploy using the Amazon.Lambda.Tools
   - dotnet tool install -g Amazon.Lambda.Tools
