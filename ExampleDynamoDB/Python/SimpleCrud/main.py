@@ -17,8 +17,8 @@ if retrieved_item == None:
 else:
     print("3: get_item response:", retrieved_item.__dict__)
 
-queried_items = custom_table_repository.get_itens_by_pk("1")
-print("4: get_itens_by_pk response:", [item.__dict__ for item in queried_items])
+queried_items = custom_table_repository.get_items_by_pk("1")
+print("4: get_items_by_pk response:", [item.__dict__ for item in queried_items])
 
 update_expression = "set NewColumn = :val"
 expression_values = {':val': 'Test 3'}

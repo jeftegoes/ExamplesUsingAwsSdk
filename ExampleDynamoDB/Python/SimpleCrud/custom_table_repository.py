@@ -37,7 +37,7 @@ class CustomTableRepository:
         response = self.table.delete_item(Key={"Id": primary_key, "Description": secondary_key})
         return response
     
-    def get_itens_by_pk(self, primary_key: str) -> list[CustomTable]:
+    def get_items_by_pk(self, primary_key: str) -> list[CustomTable]:
         response = self.table.query(KeyConditionExpression = Key('Id').eq(primary_key))
         items = response.get('Items', [])
         return [CustomTable(item['Id'], item['Description']) for item in items]
