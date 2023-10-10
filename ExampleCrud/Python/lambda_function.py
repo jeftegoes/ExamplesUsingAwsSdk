@@ -3,7 +3,6 @@ import json
 import logging
 import os
 import uuid
-from io import BytesIO
 
 import boto3
 
@@ -33,9 +32,10 @@ def handler(event, context):
     table.put_item(Item=product)
 
     base64_image = body.get('filebase64')
-    image_data = base64.b64decode(base64_image)
-    s3_client.put_object(
-        Body=image_data, Bucket=bucket_name, Key=file_name)
+    if (base64_image):
+        image_data = base64.b64decode(base64_image)
+        s3_client.put_object(
+            Body=image_data, Bucket=bucket_name, Key=file_name)
 
     response = {
         'statusCode': 200,

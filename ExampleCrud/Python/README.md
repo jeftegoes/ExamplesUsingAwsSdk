@@ -41,7 +41,18 @@
        ```
 3.  Create product table into DynamoDb.
 4.  Create lambda
+
     1.  Adding enviroment variable
+    2.  To test directly into Lambda
+
+    ```
+        {
+        "resource": "/product",
+        "httpMethod": "POST",
+        "body": "{\n\t\"name\": \"Clean architecture\",\n\t\"rating\": 5,\n\t\"author\": \"Uncle BOB\",\n\t\"price\": 49.99,\n\t\"fileName\": \"Clean architecture.jpg\"\n}"
+        }
+    ```
+
 5.  Create API Gateway
     1.  To upload image must be informed in `API Gateway` -> `Settings` -> `Binary Media Types` -> `multipart/form-data`
 
