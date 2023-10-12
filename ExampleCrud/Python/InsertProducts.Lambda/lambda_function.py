@@ -11,14 +11,14 @@ logger.setLevel(logging.INFO)
 region: str = os.environ.get("AWS_REGION")
 bucket_name: str = os.environ.get("bucketName")
 table_name: str = os.environ.get("tableName")
+s3_client = boto3.client('s3')
+dynamodb_client = boto3.resource("dynamodb", region_name=region)
+table = dynamodb_client.Table(table_name)
 
 
 def handler(event, context):
     body = json.loads(event['body'])
 
-    s3_client = boto3.client('s3')
-    dynamodb_client = boto3.resource("dynamodb", region_name=region)
-    table = dynamodb_client.Table(table_name)
     file_name = body["fileName"]
     product = {
         "Id": str(uuid.uuid4()),

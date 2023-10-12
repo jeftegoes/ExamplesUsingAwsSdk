@@ -19,11 +19,10 @@ public class DynamoDBToS3
     private static DynamoDBContextConfig dbContextConfig = new DynamoDBContextConfig { Conversion = DynamoDBEntryConversion.V2 };
     private static DynamoDBContext dynamoDBContext = new DynamoDBContext(dynamoClient, dbContextConfig);
 
-    public async Task FunctionHandler(Parameters parameters)
+    public async Task FunctionHandler()
     {
         Console.WriteLine("Process stared.");
         var stopWatch = new Stopwatch();
-
         stopWatch.Start();
 
         Console.WriteLine("Getting DynamoDB items...");
