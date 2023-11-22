@@ -21,3 +21,8 @@ This is a small / simple example that shows how using AWS SDK to create Custom M
 ## 2.1. Result of this project
 
 ![Amazon CloudWatch Custom Metrics](Images/Metrics.png)
+
+# 3. Documentations
+
+- [Amazon ECS CloudWatch metrics](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-metrics.html)
+- [Handle errors in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-8.0)
