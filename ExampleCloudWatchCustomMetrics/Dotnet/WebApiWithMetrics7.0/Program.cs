@@ -1,12 +1,9 @@
 using Amazon;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
-using WebApiWithMetrics.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAWSService<IAmazonCloudWatch>();
@@ -20,7 +17,6 @@ app.UseExceptionHandler(options =>
 
 });
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -34,6 +30,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
+    throw new NotImplementedException();
     var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
@@ -46,6 +43,11 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+app.MapPost("create_anything", () =>
+{
+    return TypedResults.Created(Guid.NewGuid().ToString());
+});
 
 app.MapGet("thrownotimplementedexception", () =>
 {
@@ -60,7 +62,7 @@ app.UseExceptionHandler(exceptionHandlerApp =>
     {
         await cloudWatchClient.PutMetricDataAsync(new PutMetricDataRequest()
         {
-            Namespace = "ExampleWebApi",
+            Namespace = MetricEnumerator.NAMESPACE,
             MetricData = new List<MetricDatum>()
             {
                 new MetricDatum()

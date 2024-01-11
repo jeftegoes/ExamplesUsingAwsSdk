@@ -2,33 +2,31 @@ using System.Diagnostics;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
 
-namespace WebApiWithMetrics.Middleware
+public class CloudWatchExecutionTimeMiddleware
 {
-    public class CloudWatchExecutionTimeMiddleware
+    private readonly RequestDelegate _next;
+    private readonly IAmazonCloudWatch _amazonCloudWatch;
+
+    public CloudWatchExecutionTimeMiddleware(RequestDelegate next, IAmazonCloudWatch amazonCloudWatch)
     {
-        private readonly RequestDelegate _next;
-        private readonly IAmazonCloudWatch _amazonCloudWatch;
+        _next = next;
+        _amazonCloudWatch = amazonCloudWatch;
+    }
 
-        public CloudWatchExecutionTimeMiddleware(RequestDelegate next, IAmazonCloudWatch amazonCloudWatch)
+    public async Task Invoke(HttpContext context)
+    {
+        var stopWatch = new Stopwatch();
+
+        stopWatch.Start();
+
+        await _next(context);
+
+        stopWatch.Stop();
+
+        await _amazonCloudWatch.PutMetricDataAsync(new PutMetricDataRequest()
         {
-            _next = next;
-            _amazonCloudWatch = amazonCloudWatch;
-        }
-
-        public async Task Invoke(HttpContext context)
-        {
-            var stopWatch = new Stopwatch();
-
-            stopWatch.Start();
-
-            await _next(context);
-
-            stopWatch.Stop();
-
-            await _amazonCloudWatch.PutMetricDataAsync(new PutMetricDataRequest()
-            {
-                Namespace = "ExampleWebApi",
-                MetricData = new List<MetricDatum>()
+            Namespace = MetricEnumerator.NAMESPACE,
+            MetricData = new List<MetricDatum>()
                 {
                     new MetricDatum()
                     {
@@ -51,7 +49,6 @@ namespace WebApiWithMetrics.Middleware
                         }
                     }
                 }
-            });
-        }
+        });
     }
 }

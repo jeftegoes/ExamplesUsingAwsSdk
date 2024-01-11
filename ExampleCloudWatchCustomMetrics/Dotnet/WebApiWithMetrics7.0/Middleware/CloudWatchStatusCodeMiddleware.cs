@@ -1,5 +1,8 @@
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Net;
 
 public class CloudWatchStatusCodeMiddleware
 {
@@ -16,9 +19,12 @@ public class CloudWatchStatusCodeMiddleware
     {
         await _next(context);
 
+        if (!((HttpStatusCode)context.Response.StatusCode).IsSuccessStatusCode())
+            return;
+
         await _amazonCloudWatch.PutMetricDataAsync(new PutMetricDataRequest()
         {
-            Namespace = "ExampleWebApi",
+            Namespace = MetricEnumerator.NAMESPACE,
             MetricData = new List<MetricDatum>()
             {
                 new MetricDatum()

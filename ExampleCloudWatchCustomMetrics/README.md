@@ -26,3 +26,12 @@ This is a small / simple example that shows how using AWS SDK to create Custom M
 
 - [Amazon ECS CloudWatch metrics](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-metrics.html)
 - [Handle errors in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-8.0)
+
+# 4. Use Cases
+
+- Scenario 1: Different metric names in the same namespace:
+  ![Amazon CloudWatch](Images/Scenario1DifferentMetricNames.png)
+  ![Grafana](Images/Scenario1GrafanaDifferentMetricNames.png)
+- Scenario 2: Same metric names in the same namespace:
+  ![Amazon CloudWatch](Images/Scenario2SameMetricNames.png)
+  ![Grafana](Images/Scenario2GrafanaSameMetricNames.png)

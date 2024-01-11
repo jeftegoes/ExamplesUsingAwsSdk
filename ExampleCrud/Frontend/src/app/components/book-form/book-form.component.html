@@ -1,0 +1,69 @@
+<form [formGroup]="bookForm">
+  <div>
+    <label for="name">Name</label>
+    <input
+      type="text"
+      id="name"
+      formControlName="name"
+      placeholder=""
+      value=""
+      required
+    />
+  </div>
+  <div>
+    <label for="rating">Rating</label>
+    <input
+      type="number"
+      id="rating"
+      formControlName="rating"
+      placeholder=""
+      value=""
+      required
+    />
+  </div>
+  <div>
+    <label for="author">Author</label>
+    <input
+      type="text"
+      id="author"
+      formControlName="author"
+      placeholder=""
+      value=""
+      required
+    />
+  </div>
+  <div>
+    <label for="price">Price</label>
+    <input
+      type="text"
+      id="price"
+      formControlName="price"
+      placeholder=""
+      value=""
+      required
+    />
+  </div>
+  <div>
+    <label for="fileName">File name</label>
+    <input
+      type="text"
+      id="fileName"
+      formControlName="fileName"
+      placeholder=""
+      value=""
+      required
+    />
+  </div>
+  <div>
+    <label for="filebase64">Base64</label>
+    <input
+      type="text"
+      id="filebase64"
+      formControlName="filebase64"
+      placeholder=""
+      value=""
+      required
+    />
+  </div>
+</form>
+<button (click)="onSubmit()">Gravar</button>

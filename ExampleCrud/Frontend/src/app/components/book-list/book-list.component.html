@@ -1,0 +1,16 @@
+<table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>{{ book.id }}</td>
+        <td>{{ book.name }}</td>
+        <td><img src="{{ book.file_name }}" alt="" width="100px"></td>
+      </tr>
+    </tbody>
+  </table>
