@@ -1,12 +1,12 @@
 # Baby steps
 
-1.  Create role arn:aws:iam::939645320583:role/CrudProductLambdaConsoleManualExecutionRole
+1.  Create role arn:aws:iam::XXXXXXXXXXX:role/CrudProductLambdaConsoleManualExecutionRole
     1.  AmazonDynamoDBFullAccess
     2.  AmazonS3FullAccess
     3.  AWSLambdaExecute
     4.  AWSLambdaBasicExecutionRole
     5.  AWSXrayWriteOnlyAccess
-2.  Create `books-images-939645320583` and `front-end` buckets.
+2.  Create `books-images-XXXXXXXXXXX` and `front-end` buckets.
     1. Enable option Block all public access.
     2. Configure bucket policy
        ```
@@ -18,13 +18,13 @@
                     "Effect": "Allow",
                     "Principal": "*",
                     "Action": "s3:GetObject",
-                    "Resource": "arn:aws:s3:::books-images-939645320583/*"
+                    "Resource": "arn:aws:s3:::books-images-XXXXXXXXXXX/*"
                 },
                 {
                     "Sid": "AllowLambdaAccess",
                     "Effect": "Allow",
                     "Principal": {
-                        "AWS": "arn:aws:iam::939645320583:role/CrudProductLambdaConsoleManualExecutionRole"
+                        "AWS": "arn:aws:iam::XXXXXXXXXXX:role/CrudProductLambdaConsoleManualExecutionRole"
                     },
                     "Action": [
                         "s3:PutObject",
@@ -34,7 +34,7 @@
                         "s3:DeleteObject",
                         "s3:DeleteObjectVersion"
                     ],
-                    "Resource": "arn:aws:s3:::books-images-939645320583/*"
+                    "Resource": "arn:aws:s3:::books-images-XXXXXXXXXXX/*"
                 }
             ]
         }

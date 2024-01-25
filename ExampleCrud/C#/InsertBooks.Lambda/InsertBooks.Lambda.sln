@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsertBooks.Lambda", "InsertBooks.Lambda.csproj", "{584397AA-12D4-466B-962A-C6B0F4926EFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{584397AA-12D4-466B-962A-C6B0F4926EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{584397AA-12D4-466B-962A-C6B0F4926EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{584397AA-12D4-466B-962A-C6B0F4926EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{584397AA-12D4-466B-962A-C6B0F4926EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB53FB2E-F691-48DF-84B9-D57A7EFFED4D}
+	EndGlobalSection
+EndGlobal

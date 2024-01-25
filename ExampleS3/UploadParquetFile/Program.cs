@@ -17,4 +17,4 @@ await ParquetSerializer.SerializeAsync<Person>(people, parqueFileName);
 var s3Client = new AmazonS3Client(RegionEndpoint.SAEast1);
 
 var fileTransferUtility = new TransferUtility(s3Client);
-await fileTransferUtility.UploadAsync(parqueFileName, "products-images-939645320583");
+await fileTransferUtility.UploadAsync(parqueFileName, "products-images-XXXXXXXXXXX");

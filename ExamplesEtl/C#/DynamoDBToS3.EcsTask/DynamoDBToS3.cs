@@ -56,7 +56,7 @@ public class DynamoDBToS3
 
         var putRequest = new PutObjectRequest
         {
-            BucketName = "products-images-939645320583",
+            BucketName = "products-images-XXXXXXXXXXX",
             Key = $"data_{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.json",
             ContentBody = jsonProducts
         };

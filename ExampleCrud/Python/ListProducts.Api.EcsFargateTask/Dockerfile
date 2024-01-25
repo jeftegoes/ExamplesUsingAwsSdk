@@ -11,7 +11,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 ENV AWS_REGION="sa-east1"
-ENV bucketName="products-images-939645320583"
+ENV bucketName="products-images-XXXXXXXXXXX"
 ENV tableName="Products"
 
 # Install pip requirements
