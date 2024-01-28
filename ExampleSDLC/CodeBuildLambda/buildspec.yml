@@ -4,8 +4,8 @@ env:
   variables:
     DOTNET_ROOT: /root/.dotnet
   secrets-manager:
-    AWS_ACCESS_KEY_ID_PARAM: CodeBuild:AWS_ACCESS_KEY_ID
-    AWS_SECRET_ACCESS_KEY_PARAM: CodeBuild:AWS_SECRET_ACCESS_KEY
+    AWS_ACCESS_KEY_ID_PARAM: MySecretManager:AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY_PARAM: MySecretManager:AWS_SECRET_ACCESS_KEY
 
 phases:
   install:
@@ -20,7 +20,6 @@ phases:
       - aws configure set region $Region
       - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID_PARAM
       - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY_PARAM
-      - cd InsertBook
       - cd src
       - cd InsertBook
       - dotnet clean
