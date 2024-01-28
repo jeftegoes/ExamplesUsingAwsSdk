@@ -13,6 +13,8 @@
 - To install Amazon Template for Dotnet Amazon.Lambda.Templates
   - dotnet new -i Amazon.Lambda.Templates
 - Deploy function (publish)
-  - dotnet lambda deploy-function MyFunction
+  - dotnet lambda deploy-function `<name_function>`
 - Execute lambda function
-  - dotnet lambda invoke-function MyFunction --payload "Just Checking If Everything is OK"
+  - dotnet lambda invoke-function `<name_function>` --payload "Just Checking If Everything is OK"
+- Deploy function (publish) locally
+  - dotnet lambda package `<.\sln_file_name.sln>` -o `<output_file_name.zip>`
