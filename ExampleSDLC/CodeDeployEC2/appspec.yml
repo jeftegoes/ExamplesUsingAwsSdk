@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+files:
+  - source: app
+    destination: /var/www
+  - source: deploy-scripts/webapi.service
+    destination: /etc/systemd/system
+hooks:
+  BeforeInstall:
+    - location: deploy-scripts/before_install.sh
+      timeout: 120
+      runas: root
+  ApplicationStop:
+    - location: deploy-scripts/stop_app.sh
+      timeout: 120
+      runas: root
+  ApplicationStart:
+    - location: deploy-scripts/start_app.sh
+      timeout: 120
+      runas: root
