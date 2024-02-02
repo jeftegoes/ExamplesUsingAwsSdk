@@ -2,7 +2,7 @@
 
 - Amazon Linux (Inferred)
 
-# 2. Instance AWS IAM Role
+# 2. EC2 Instance AWS IAM Role
 
 - `AmazonEC2RoleforAWSCodeDeployLimited`
 - `AmazonS3FullAccess`
