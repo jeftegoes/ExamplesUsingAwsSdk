@@ -1,4 +1,4 @@
-package com.insertbooks.lambda;
+package org.example;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
@@ -57,5 +57,16 @@ public class Book {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", rating=" + rating +
+                ", author='" + author + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

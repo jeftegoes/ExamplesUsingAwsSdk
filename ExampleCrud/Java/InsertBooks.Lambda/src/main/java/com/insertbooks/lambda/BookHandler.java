@@ -7,7 +7,10 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+import java.util.Map;
 
 public class BookHandler {
 
@@ -31,6 +34,25 @@ public class BookHandler {
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
         response.withStatusCode(200).withBody(returnValue.toString());
+
+        return response;
+    }
+
+    public APIGatewayProxyResponseEvent getBookById(APIGatewayProxyRequestEvent request, Context context) {
+        Map<String, String> pathParameters = request.getPathParameters();
+        String bookId = pathParameters.get("bookId");
+
+        Book book = dynamoDBMapper.load(Book.class, bookId);
+
+        APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
+
+        if (book != null) {
+            Gson gson = new Gson();
+            JsonObject returnValue = gson.toJsonTree(book).getAsJsonObject();
+
+            response.withStatusCode(200).withBody(returnValue.toString());
+        } else
+            response.withStatusCode(500).withBody("Book not found!");
 
         return response;
     }
