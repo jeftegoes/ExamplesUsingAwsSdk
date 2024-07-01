@@ -3,7 +3,7 @@
 - Composition: `PackageName` + `ClassName` + `Method`
   - `com.insertbooks.lambda.BookHandler::saveBook`
 
-# 1. To test directly into Lambda
+# 2. To test directly into Lambda
 
 - To insert method
 

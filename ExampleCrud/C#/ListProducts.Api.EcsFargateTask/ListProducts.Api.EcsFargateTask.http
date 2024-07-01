@@ -1,0 +1,6 @@
+@ListProducts.Api.EcsFargateTask_HostAddress = http://localhost:5196
+
+GET {{ListProducts.Api.EcsFargateTask_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

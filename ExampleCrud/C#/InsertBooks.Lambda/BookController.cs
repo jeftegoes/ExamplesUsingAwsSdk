@@ -11,6 +11,11 @@ using Models;
 
 public class BookControoler
 {
+    private static string GetRegionName() =>
+        Environment.GetEnvironmentVariable("AWS_REGION") ?? "sa-east-1";
+    private static readonly AmazonDynamoDBClient dbClient = new AmazonDynamoDBClient(RegionEndpoint.GetBySystemName(GetRegionName()));
+    private static readonly DynamoDBContext dbContext = new DynamoDBContext(dbClient);
+
     private APIGatewayProxyResponse GetDefaultResponse()
     {
         var response = new APIGatewayProxyResponse()
@@ -27,21 +32,39 @@ public class BookControoler
         return response;
     }
 
-    private string GetRegionName() =>
-        Environment.GetEnvironmentVariable("AWS_REGION") ?? "sa-east-1";
-
     public async Task<APIGatewayProxyResponse> SaveBook(APIGatewayProxyRequest request, ILambdaContext context)
     {
         var book = JsonSerializer.Deserialize<Book>(request.Body);
 
-        var dbClient = new AmazonDynamoDBClient(RegionEndpoint.GetBySystemName(GetRegionName()));
-
-        using (var dbContext = new DynamoDBContext(dbClient))
-            await dbContext.SaveAsync(book);
+        await dbContext.SaveAsync(book);
 
         var response = GetDefaultResponse();
 
         response.Body = JsonSerializer.Serialize(new { Message = "Book saved successfully!" });
+
+        return response;
+    }
+
+    public async Task<APIGatewayProxyResponse> GetBooks(APIGatewayProxyRequest request, ILambdaContext context)
+    {
+        var books = await dbContext.ScanAsync<Book>(null).GetNextSetAsync();
+
+        var response = GetDefaultResponse();
+
+        response.Body = JsonSerializer.Serialize(books);
+
+        return response;
+    }
+
+    public async Task<APIGatewayProxyResponse> GetBookById(APIGatewayProxyRequest request, ILambdaContext context)
+    {
+        var bookId = request.PathParameters["bookId"];
+
+        var books = await dbContext.LoadAsync<Book>(bookId);
+
+        var response = GetDefaultResponse();
+
+        response.Body = JsonSerializer.Serialize(books);
 
         return response;
     }
