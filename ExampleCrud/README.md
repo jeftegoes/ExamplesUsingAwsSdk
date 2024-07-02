@@ -1,11 +1,12 @@
-# Baby steps
+# 1. Baby steps for lambda
 
-1.  Create role arn:aws:iam::XXXXXXXXXXX:role/CrudProductLambdaConsoleManualExecutionRole
-    1.  AmazonDynamoDBFullAccess
-    2.  AmazonS3FullAccess
-    3.  AWSLambdaExecute
-    4.  AWSLambdaBasicExecutionRole
-    5.  AWSXrayWriteOnlyAccess
+1.  Create role `arn:aws:iam::XXXXXXXXXXX:role/CrudBookLambdaRole`
+    1. **Attention to Trust Relationship LAMBDA**
+    2. `AmazonDynamoDBFullAccess`
+    3. `AmazonS3FullAccess`
+    4. `AWSLambdaExecute`
+    5. `AWSLambdaBasicExecutionRole`
+    6. `AWSXrayWriteOnlyAccess`
 2.  Create `books-images-XXXXXXXXXXX` and `front-end` buckets.
     1. Enable option Block all public access.
     2. Configure bucket policy
@@ -24,7 +25,7 @@
                     "Sid": "AllowLambdaAccess",
                     "Effect": "Allow",
                     "Principal": {
-                        "AWS": "arn:aws:iam::XXXXXXXXXXX:role/CrudProductLambdaConsoleManualExecutionRole"
+                        "AWS": "arn:aws:iam::XXXXXXXXXXX:role/CrudBookLambdaConsoleManualExecutionRole"
                     },
                     "Action": [
                         "s3:PutObject",
@@ -47,19 +48,34 @@
         2.  tableName
     2.  To test directly into Lambda
         1.  Change handler name
-
-    ```
-        {
-        "resource": "/product",
-        "httpMethod": "POST",
-        "body": "{\n\t\"name\": \"Clean architecture\",\n\t\"rating\": 5,\n\t\"author\": \"Uncle BOB\",\n\t\"price\": 49.99,\n\t\"fileName\": \"Clean architecture.jpg\"\n}"
-        }
-    ```
-
-5.  Create API Gateway
+5.  Choose the type of project
+6.  Create API Gateway
     1.  To upload image must be informed in `API Gateway` -> `Settings` -> `Binary Media Types` -> `multipart/form-data`
 
-# Packages
+# 2. Baby steps for ecs/fargate
 
-- pip install python-multipart
-- pip install boto3
+## 2.1. Pre-requisites
+
+1. AWS CLI
+2. Docket
+
+## 2.2. Steps
+
+1. **To do this we, need an AWS CLI configured!**
+2. Create role `arn:aws:iam::XXXXXXXXXXX:role/CrudBookEcsRole`
+   1. **Attention to Trust Relationship Elastic Conteiner Service (ecs-tasks.amazonaws.com)**
+   2. `AmazonDynamoDBFullAccess`
+   3. `AmazonAPIGatewayPushToCloudWatchLogs`
+   4. `AmazonS3FullAccess`
+   5. `AWSLambdaBasicExecutionRole`
+   6. `AWSXrayWriteOnlyAccess`
+   7. `AmazonSNSFullAccess` (optional)
+3. Amazon ECR > Private registry > Repositories > Create repository
+4. View push commands > Execute all!
+5. Create Cluster ECS FARGATE!
+6. Create Task Definition
+   1. C# port 8080
+   2. `CMD-SHELL,curl -f http://localhost/health?param1=1&param2=2 || exit 1`
+   3. Check Public IP
+7. Configure Security Group
+   1. `Custom TCP	TCP	8080	0.0.0.0/0`
