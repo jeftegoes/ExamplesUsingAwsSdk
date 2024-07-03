@@ -61,15 +61,15 @@
 
 ## 2.2. Steps
 
-1. **To do this we, need an AWS CLI configured!**
+1. **To do this we, need an AWS CLI and Docker configured!**
 2. Create role `arn:aws:iam::XXXXXXXXXXX:role/CrudBookEcsRole`
-   1. **Attention to Trust Relationship Elastic Conteiner Service (ecs-tasks.amazonaws.com)**
+   1. **Attention to Trust Relationship -> Elastic Conteiner Service (ecs-tasks.amazonaws.com)**
    2. `AmazonDynamoDBFullAccess`
    3. `AmazonAPIGatewayPushToCloudWatchLogs`
    4. `AmazonS3FullAccess`
-   5. `AWSLambdaBasicExecutionRole`
-   6. `AWSXrayWriteOnlyAccess`
-   7. `AmazonSNSFullAccess` (optional)
+   5. `AmazonEC2ContainerRegistryFullAccess`
+   7. `AWSXrayWriteOnlyAccess`
+   8. `AmazonSNSFullAccess` (optional)
 3. Amazon ECR > Private registry > Repositories > Create repository
 4. View push commands > Execute all!
 5. Create Cluster ECS FARGATE!
@@ -79,3 +79,8 @@
    3. Check Public IP
 7. Configure Security Group
    1. `Custom TCP	TCP	8080	0.0.0.0/0`
+8. Create Cluster type ECS/FARGATE
+9. Create target group such `IP addresses`
+10. Create Applicaiton Load Balancer
+11. Create service
+12. Configure API Gateway method
