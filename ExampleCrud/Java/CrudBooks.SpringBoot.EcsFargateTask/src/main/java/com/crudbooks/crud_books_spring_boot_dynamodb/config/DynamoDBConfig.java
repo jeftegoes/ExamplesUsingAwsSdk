@@ -34,7 +34,7 @@ public class DynamoDBConfig {
     private DynamoDbClient dynamoDbClient() {
         return DynamoDbClient.builder()
                 .region(region)
-                .credentialsProvider(awsCredentialsProvider())
+//                .credentialsProvider(awsCredentialsProvider()) If we use hardcoded credentials.
                 .build();
     }
 
