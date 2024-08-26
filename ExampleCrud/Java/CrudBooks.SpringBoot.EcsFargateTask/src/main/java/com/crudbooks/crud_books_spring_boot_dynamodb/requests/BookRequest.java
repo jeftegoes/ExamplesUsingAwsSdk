@@ -1,22 +1,28 @@
-package com.crudbooks.crud_books_spring_boot_dynamodb.models;
+package com.crudbooks.crud_books_spring_boot_dynamodb.requests;
 
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-@DynamoDbBean
-public class Book {
+public class BookRequest {
+    @JsonProperty("Id")
     private String id;
-    private String name;
-    private int rating;
-    private String author;
-    private float price;
-    private List<Publisher> publisher;
 
-    @DynamoDbPartitionKey
-    @DynamoDbAttribute("Id")
+    @JsonProperty("Name")
+    private String name;
+
+    @JsonProperty("Rating")
+    private int rating;
+
+    @JsonProperty("Author")
+    private String author;
+
+    @JsonProperty("Price")
+    private float price;
+
+    @JsonProperty("Publisher")
+    private List<PublisherRequest> publisher;
+
     public String getId() {
         return id;
     }
@@ -25,7 +31,6 @@ public class Book {
         this.id = id;
     }
 
-    @DynamoDbAttribute("Name")
     public String getName() {
         return name;
     }
@@ -34,7 +39,6 @@ public class Book {
         this.name = name;
     }
 
-    @DynamoDbAttribute("Rating")
     public int getRating() {
         return rating;
     }
@@ -43,7 +47,6 @@ public class Book {
         this.rating = rating;
     }
 
-    @DynamoDbAttribute("Author")
     public String getAuthor() {
         return author;
     }
@@ -52,7 +55,6 @@ public class Book {
         this.author = author;
     }
 
-    @DynamoDbAttribute("Price")
     public float getPrice() {
         return price;
     }
@@ -61,12 +63,11 @@ public class Book {
         this.price = price;
     }
 
-    @DynamoDbAttribute("Publisher")
-    public List<Publisher> getPublisher() {
+    public List<PublisherRequest> getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(List<Publisher> publisher) {
+    public void setPublisher(List<PublisherRequest> publisher) {
         this.publisher = publisher;
     }
 }

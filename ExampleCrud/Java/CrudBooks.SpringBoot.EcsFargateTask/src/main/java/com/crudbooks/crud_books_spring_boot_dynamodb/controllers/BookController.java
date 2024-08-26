@@ -1,6 +1,8 @@
 package com.crudbooks.crud_books_spring_boot_dynamodb.controllers;
 
+import com.crudbooks.crud_books_spring_boot_dynamodb.mappers.BookMapper;
 import com.crudbooks.crud_books_spring_boot_dynamodb.models.Book;
+import com.crudbooks.crud_books_spring_boot_dynamodb.requests.BookRequest;
 import com.crudbooks.crud_books_spring_boot_dynamodb.services.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,8 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> create(@RequestBody Book book) {
+    public ResponseEntity<Book> create(@RequestBody BookRequest bookRequest) {
+        Book book = BookMapper.INSTANCE.bookRequestToBook(bookRequest);
         this.bookService.save(book);
         return ResponseEntity.ok(book);
     }
