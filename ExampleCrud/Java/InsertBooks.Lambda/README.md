@@ -1,0 +1,1 @@
+- AWS SDK for Java, version 1
