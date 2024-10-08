@@ -6,26 +6,21 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
 public class BookHandler {
-
-    private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
     private static final DynamoDBMapper dynamoDBMapper = new DynamoDBMapper(client);
+    private static Logger logger = LogManager.getLogger(BookHandler.class);
 
     public APIGatewayProxyResponseEvent saveBook(APIGatewayProxyRequestEvent request, Context context) {
-        Book book = new Book();
-
-        try {
-            book = objectMapper.readValue(request.getBody(), Book.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Gson gson = new Gson();
+        Book book = gson.fromJson(request.getBody(), Book.class);
 
         dynamoDBMapper.save(book);
 
@@ -34,6 +29,9 @@ public class BookHandler {
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
         response.withStatusCode(200).withBody(returnValue.toString());
+
+        String json = gson.toJson(book);
+        logger.info(json);
 
         return response;
     }
@@ -46,14 +44,14 @@ public class BookHandler {
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
 
-        if (book != null) {
-            Gson gson = new Gson();
-            JsonObject returnValue = gson.toJsonTree(book).getAsJsonObject();
+        if (book == null)
+            return response.withStatusCode(500).withBody("Book not found!");
 
-            response.withStatusCode(200).withBody(returnValue.toString());
-        } else
-            response.withStatusCode(500).withBody("Book not found!");
+        Gson gson = new Gson();
+        String json = gson.toJson(book);
 
-        return response;
+        logger.info(json);
+
+        return response.withStatusCode(200).withBody(json);
     }
 }
