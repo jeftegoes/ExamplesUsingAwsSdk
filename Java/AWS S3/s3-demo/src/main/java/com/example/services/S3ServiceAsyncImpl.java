@@ -65,4 +65,9 @@ public class S3ServiceAsyncImpl implements S3Service {
 
         return tempFile;
     }
+
+    @Override
+    public File downloadFileAsFileAndBytes(String bucketName, String keyName) throws IOException {
+        return null;
+    }
 }

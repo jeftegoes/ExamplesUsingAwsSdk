@@ -14,4 +14,5 @@ public interface S3Service {
 
     void downloadFile(String bucketName, String keyName, String downloadPath);
     File downloadFileAsFile(String bucketName, String keyName) throws IOException;
+    File downloadFileAsFileAndBytes(String bucketName, String keyName) throws IOException;
 }

@@ -1,8 +1,7 @@
 package com.example;
 
 import com.example.services.S3Service;
-import com.example.services.S3ServiceAsyncImpl;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.example.services.S3ServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,13 +10,15 @@ import software.amazon.awssdk.services.s3.model.Bucket;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @SpringBootApplication
 public class S3DemoApplication {
     private final S3Service s3Service;
 
-    public S3DemoApplication(S3ServiceAsyncImpl s3Service) {
+    public S3DemoApplication(S3ServiceImpl s3Service) {
         this.s3Service = s3Service;
     }
 
@@ -46,6 +47,12 @@ public class S3DemoApplication {
 
             System.out.println("Download file to bucket...");
             this.s3Service.downloadFile(bucketName, customFileName, customFileName);
+
+            System.out.println("Download file to bucket as byte...");
+            File file = this.s3Service.downloadFileAsFileAndBytes(bucketName, customFileName);
+            for (String line : Files.readAllLines(file.toPath())) {
+                System.out.println(line);
+            }
         };
     }
 }

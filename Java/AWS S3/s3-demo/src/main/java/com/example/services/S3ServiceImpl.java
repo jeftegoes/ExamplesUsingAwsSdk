@@ -1,16 +1,16 @@
 package com.example.services;
 
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.Bucket;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -60,6 +60,24 @@ public class S3ServiceImpl implements S3Service {
                 .build();
 
         this.s3Client.getObject(getObjectRequest, ResponseTransformer.toFile(tempFile.toPath()));
+
+        return tempFile;
+    }
+
+    public File downloadFileAsFileAndBytes(String bucketName, String keyName) throws IOException {
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(keyName)
+                .build();
+
+        ResponseBytes<GetObjectResponse> objectBytes = this.s3Client.getObject(getObjectRequest, ResponseTransformer.toBytes());
+        byte[] data = objectBytes.asByteArray();
+
+        File tempFile = Files.createTempFile("s3-download-", "-" + keyName).toFile();
+        OutputStream os = new FileOutputStream(tempFile);
+        os.write(data);
+        System.out.println("Successfully obtained bytes from an S3 object");
+        os.close();
 
         return tempFile;
     }
